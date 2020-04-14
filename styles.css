@@ -1,0 +1,9 @@
+.left-container {
+    border: 1px solid black;
+    display: inline-block;
+}
+
+.right-container {
+    border: 1px solid red;
+    display: inline-block;
+}
