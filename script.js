@@ -1,6 +1,9 @@
-let myLibrary = [
-    {title: "GOT", author: "Tolkien", pages: 123, readStatus: false}
-];
+let myLibrary = [];
+const tableBody = document.querySelector('table')
+const buttons = { 
+    addBook: document.querySelector('.test-btn'),
+};
+let deleteButtons = [];
 
 function Book(title, author, pages, readStatus) {
     this.title = title,
@@ -8,7 +11,6 @@ function Book(title, author, pages, readStatus) {
     this.pages = pages,
     this.readStatus = readStatus
 }
-
 
 function addBookToLibrary() {
     let title = document.querySelector('#title').value
@@ -19,13 +21,10 @@ function addBookToLibrary() {
     if (title == '' || author == '' || pages == '') return;
     
     myLibrary.push(new Book(title, author, pages, readStatus))
-    console.table(myLibrary);
     document.querySelector('#title').value = '';
     document.querySelector('#author').value = '';
     document.querySelector('#pages').value = '';
 }
-
-const tableBody = document.querySelector('table')
 
 function renderTableHeader() {
     let headerRow = document.createElement('tr');
@@ -53,10 +52,6 @@ function renderTableHeader() {
     tableBody.appendChild(headerRow);
 }
 
-const deleteBtn = document.createElement('button')
-deleteBtn.classList.add('delete')
-deleteBtn.innerHTML = 'Delete'
-
 function render() {
     tableBody.innerHTML = '';
     renderTableHeader()
@@ -68,21 +63,28 @@ function render() {
             tableCell.innerText = myLibrary[index][key];
             tableRow.appendChild(tableCell);
         }
+        let deleteBtn = document.createElement('button')
+            deleteBtn.classList.add('delete')
+            deleteBtn.innerHTML = 'Delete'
         tableRow.appendChild(deleteBtn);
         tableBody.appendChild(tableRow);
     }
+    addDeleteListeners();
 }
-
-const buttons = { 
-    addBook: document.querySelector('.test-btn'),
-    deleteBook: document.querySelectorAll('.delete')
-};
 
 buttons.addBook.addEventListener('click', () => {
     addBookToLibrary();
     render();
 });
 
-buttons.deleteBook.addEventListener('click', (e) => {
+function addDeleteListeners() {
+	document.querySelectorAll(".delete").forEach(function(button) {
+		button.addEventListener("click", function() {
+            //alert(this.parentNode.rowIndex)
+            myLibrary.splice(this.parentNode.rowIndex-1, 1)
+            render();
+		});
+	});
+}
 
-});
+// read status column still awkwardly shows 'false'
