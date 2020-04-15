@@ -1,9 +1,16 @@
+div, button, select {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 .left-container {
     border: 1px solid black;
     display: inline-block;
 }
 
 .right-container {
-    border: 1px solid red;
     display: inline-block;
+}
+
+th {
+    border-bottom: 1px solid black;
 }
