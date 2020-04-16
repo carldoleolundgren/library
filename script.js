@@ -17,7 +17,7 @@ function addBookToLibrary() {
     let pages = Number(document.querySelector('#pages').value);
     let readStatus = document.querySelector('#read-status').value;
     
-    if (title == '' || author == '' || pages == '') return;
+    if (title == '' || author == '' || pages == '' || isNaN(pages)) return;
     
     myLibrary.push(new Book(title, author, pages, readStatus))
     
@@ -51,7 +51,7 @@ function renderTableHeader() {
     headerRow.appendChild(headerDelete);
 
     tableBody.appendChild(headerRow);
-}
+} // rework this into a for loop
 
 function render() {
     tableBody.innerHTML = '';
@@ -61,21 +61,15 @@ function render() {
         let tableRow = document.createElement('tr');
         for (let key in myLibrary[index]) {
             let tableCell = document.createElement('td');
-            if (index == myLibrary.readStatus) {
-                let readSelector = document.createElement('select');
-                readSelector.add('Yes', 0)
-                readSelector.add('No', 1)
-                readSelector.add('Reading', 2)
-                tableCell.appendChild(readSelector);
+            if (key == 'readStatus') {
+                addReadSelector(tableCell);
             } else { 
                 tableCell.innerText = myLibrary[index][key];
+                tableCell.contentEditable = 'true';
             }
-            tableCell.contentEditable = 'true';
             tableRow.appendChild(tableCell);
         }
-        let deleteBtn = document.createElement('button')
-            deleteBtn.classList.add('delete')
-            deleteBtn.innerHTML = 'Delete'
+        let deleteBtn = addDeleteBtn();
         tableRow.appendChild(deleteBtn);
         tableBody.appendChild(tableRow);
     }
@@ -87,6 +81,36 @@ buttons.addBook.addEventListener('click', () => {
     render();
 });
 
+function addReadSelector(tableCell) {
+    let readSelector = document.createElement('select');
+    tableCell.appendChild(readSelector);
+    array = ['Yes', 'No', 'Reading'];
+    for (let i = 0; i < array.length; i++) {
+        let option = document.createElement("option");
+        option.value = array[i];
+        option.text = array[i];
+        readSelector.appendChild(option);
+    }
+
+    var e = document.getElementById('read-status');
+    var temp = e.options[e.selectedIndex].text;
+    console.log(temp)
+
+    for(let i, j = 0; i = readSelector.options[j]; j++) {
+        if(i.value == temp) {
+            readSelector.selectedIndex = j;
+            break;
+        }
+    }
+}
+
+function addDeleteBtn() {
+    let deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('delete');
+    deleteBtn.innerHTML = 'Delete';
+    return deleteBtn;
+}
+
 function addDeleteListeners() {
 	document.querySelectorAll(".delete").forEach(function(button) {
 		button.addEventListener("click", function() {
@@ -96,27 +120,4 @@ function addDeleteListeners() {
 	});
 }
 
-/*
-let editBtn = document.createElement('button')
-            editBtn.classList.add('edit')
-            editBtn.innerHTML = 'Edit'
-tableRow.appendChild(editBtn)
-addEditListeners();
-
-function addEditListeners() {
-    document.querySelectorAll(".edit").forEach(function(button) {
-		button.addEventListener("click", function() {
-            if (this.innerHTML == 'Edit') {
-                this.innerHTML = 'Save'
-
-            } else this.innerHTML = 'Edit'
-
-
-
-		});
-	});
-}
-
-*/
-// no way to change read status 
-// no way to edit added entries 
+// does not set readStatus correctly
