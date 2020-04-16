@@ -1,6 +1,15 @@
-let myLibrary = [];
+let myLibrary = [
+    {title: 'Three Body Problem',
+    author: 'Cixin Liu',
+    pages: 303,
+    readStatus: 'Yes'}
+];
 const tableBody = document.querySelector('tbody');
 const addBookBtn = document.querySelector('#add-btn');
+
+let myLibrary_serialized;
+
+render();
 
 function Book(title, author, pages, readStatus) {
     this.title = title,
@@ -20,6 +29,7 @@ function addBookToLibrary() {
     myLibrary.push(new Book(title, author, pages, readStatus));
     
     resetInputFields();
+    setLocalStorage();
 }
 
 function resetInputFields() {
@@ -67,10 +77,10 @@ function addReadSelector(tableCell, myLibrary, index, key) {
         readSelector.appendChild(option);
     }
 
-    let temp = myLibrary[index][key];
+    let chosenSelectorOption = myLibrary[index][key];
 
     for(let i, j = 0; i = readSelector.options[j]; j++) {
-        if (i.value == temp) {
+        if (i.value == chosenSelectorOption) {
             readSelector.selectedIndex = j;
             break;
         }
@@ -85,21 +95,48 @@ function addDeleteBtn() {
 }
 
 function addDeleteListeners() {
-	document.querySelectorAll(".delete").forEach(function(button) {
+	document.querySelectorAll(".delete").forEach( (button) => {
 		button.addEventListener("click", function() {
             myLibrary.splice(this.parentNode.rowIndex-1, 1)
+            setLocalStorage();
             render();
 		});
 	});
 }
 
-document.querySelectorAll("input").forEach(function(input) {
-    input.addEventListener('keyup', function(event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            addBookBtn.click();
-            document.querySelector('#title').focus();
-            document.querySelector('#title').select();
-        }
+document.querySelectorAll('input').forEach( (input) => {
+    input.addEventListener('keyup', () => {
+        addBookOnEnter();        
     });
 });
+
+document.querySelector('#read-selector').addEventListener('keyup', () => {
+    addBookOnEnter();
+})
+
+function addBookOnEnter() {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        addBookBtn.click();
+        document.querySelector('#title').focus();
+        document.querySelector('#title').select();
+    }
+}
+
+function setLocalStorage() {
+    myLibrary_serialized = JSON.stringify(myLibrary)
+    localStorage.setItem('myStoredLibrary', myLibrary_serialized)
+}
+
+window.addEventListener('load', () => {
+    myLibrary = JSON.parse(localStorage.getItem('myStoredLibrary'));
+    render();
+})
+
+// needs to keep changes when they're made in the table
+/*
+function myFunction() {
+  var x = document.getElementById("myTable").rows[0].cells[0].innerText;
+  document.getElementById("demo").innerHTML = "Found " + x + " cells in the first tr element.";
+}
+*/
