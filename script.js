@@ -1,8 +1,6 @@
 let myLibrary = [];
-const tableBody = document.querySelector('table');
-let addBookBtn = document.querySelector('#add-btn');
-
-addBookBtn
+const tableBody = document.querySelector('tbody');
+const addBookBtn = document.querySelector('#add-btn');
 
 function Book(title, author, pages, readStatus) {
     this.title = title,
@@ -12,50 +10,27 @@ function Book(title, author, pages, readStatus) {
 }
 
 function addBookToLibrary() {
-    let title = document.querySelector('#title').value
+    let title = document.querySelector('#title').value;
     let author = document.querySelector('#author').value;
     let pages = Number(document.querySelector('#pages').value);
     let readStatus = document.querySelector('#read-selector').value;
     
     if (title == '' || author == '' || pages == '' || isNaN(pages)) return;
     
-    myLibrary.push(new Book(title, author, pages, readStatus))
+    myLibrary.push(new Book(title, author, pages, readStatus));
     
+    resetInputFields();
+}
+
+function resetInputFields() {
     document.querySelector('#title').value = '';
     document.querySelector('#author').value = '';
     document.querySelector('#pages').value = '';
     document.querySelector('#read-selector').value = 'No';
 }
 
-function renderTableHeader() {
-    let headerRow = document.createElement('tr');
-    
-    let headerTitle = document.createElement('th');
-    headerTitle.innerText = 'Title';
-    headerRow.appendChild(headerTitle);
-   
-    let headerAuthor = document.createElement('th');
-    headerAuthor.innerText = 'Author';
-    headerRow.appendChild(headerAuthor);
-
-    let headerPages = document.createElement('th');
-    headerPages.innerText = 'Pages';
-    headerRow.appendChild(headerPages);
-
-    let headerReadStatus = document.createElement('th');
-    headerReadStatus.innerText = 'Read?';
-    headerRow.appendChild(headerReadStatus);
-
-    let headerDelete = document.createElement('th');
-    headerDelete.innerText = ' ';
-    headerRow.appendChild(headerDelete);
-
-    tableBody.appendChild(headerRow);
-} // rework this into a for loop
-
 function render() {
     tableBody.innerHTML = '';
-    renderTableHeader()
     
     for (let index in myLibrary) {
         let tableRow = document.createElement('tr');
