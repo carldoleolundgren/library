@@ -123,6 +123,8 @@ document.querySelectorAll("input").forEach(function(input) {
         if (event.keyCode === 13) {
             event.preventDefault();
             addBookBtn.click();
+            document.querySelector('#title').focus();
+            document.querySelector('#title').select();
         }
     });
 });
