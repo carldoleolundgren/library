@@ -62,7 +62,7 @@ function render() {
         for (let key in myLibrary[index]) {
             let tableCell = document.createElement('td');
             if (key == 'readStatus') {
-                addReadSelector(tableCell);
+                addReadSelector(tableCell, myLibrary, index, key);
             } else { 
                 tableCell.innerText = myLibrary[index][key];
                 tableCell.contentEditable = 'true';
@@ -81,7 +81,7 @@ buttons.addBook.addEventListener('click', () => {
     render();
 });
 
-function addReadSelector(tableCell) {
+function addReadSelector(tableCell, myLibrary, index, key) {
     let readSelector = document.createElement('select');
     tableCell.appendChild(readSelector);
     array = ['Yes', 'No', 'Reading'];
@@ -92,8 +92,7 @@ function addReadSelector(tableCell) {
         readSelector.appendChild(option);
     }
 
-    var e = document.getElementById('read-status');
-    var temp = e.options[e.selectedIndex].text;
+    let temp = myLibrary[index][key];
     console.log(temp)
 
     for(let i, j = 0; i = readSelector.options[j]; j++) {
