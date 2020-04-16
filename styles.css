@@ -25,6 +25,11 @@ input {
     display: inline-block;
 }
 
+#add-btn {
+    color: rgb(92, 92, 92);
+    background-color: rgb(65,135,247, .6);
+}
+
 #read-status {
     margin-bottom: 5%;
 }
@@ -44,6 +49,10 @@ th {
 
 .delete, td select {
     font-size: 16px;
+}
+
+.delete {
+    background-color: rgba(255, 64, 64, 0.6);
 }
 
 table {

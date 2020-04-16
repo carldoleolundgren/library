@@ -1,8 +1,8 @@
 let myLibrary = [];
-const tableBody = document.querySelector('table')
-const buttons = { 
-    addBook: document.querySelector('#add-btn'),
-};
+const tableBody = document.querySelector('table');
+let addBookBtn = document.querySelector('#add-btn');
+
+addBookBtn
 
 function Book(title, author, pages, readStatus) {
     this.title = title,
@@ -76,7 +76,7 @@ function render() {
     addDeleteListeners();
 }
 
-buttons.addBook.addEventListener('click', () => {
+addBookBtn.addEventListener('click', () => {
     addBookToLibrary();
     render();
 });
@@ -117,3 +117,12 @@ function addDeleteListeners() {
 		});
 	});
 }
+
+document.querySelectorAll("input").forEach(function(input) {
+    input.addEventListener('keyup', function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            addBookBtn.click();
+        }
+    });
+});
