@@ -7,17 +7,21 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+    <h1>Library</h1>
     <div class="left-container">
-        <p>Add Book to Library</p>
+        <h3>Add Book to Library:</h3>
         <input placeholder="Title" id="title"></input> <br>
         <input placeholder="Author" id="author"></input> <br>
         <input placeholder="Number of pages" id="pages"></input> <br>
-        <select id="read-status">
-            <option>Yes</option>
-            <option>No</option>
-            <option>Reading</option>
-        </select> <br>
-        <button class="test-btn">Add Book</button>
+        <div id="read-status">
+            <p id="read-question">Have you read it?</p>
+            <select id="read-selector"> 
+                <option>No</option>
+                <option>Yes</option>
+                <option>Reading</option>
+            </select> 
+        </div> <br>
+        <button id="add-btn">Add Book</button>
     </div>
     <div class="right-container">
         <table>

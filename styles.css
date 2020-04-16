@@ -1,16 +1,56 @@
-div, button, select {
+h1, div, button, select, .delete, td select {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+h1 {
+    text-align: center;
+}
+
 .left-container {
-    border: 1px solid black;
+    display: inline-block;
+    width: 25%;
+    position: absolute;
+    top: 7.5%;
+    left: 1%;
+}
+
+input {
+    width: 100%;
+    font-size: large;
+    margin-bottom: 5%;
+}
+
+#read-selector, #add-btn, p {
+    font-size: large;
     display: inline-block;
 }
 
-.right-container {
-    display: inline-block;
+#read-status {
+    margin-bottom: 5%;
+}
+
+#read-selector {
+    float: right;
+}
+
+#read-question {
+    margin: 0px;
 }
 
 th {
     border-bottom: 1px solid black;
+    width: 20%;
+}
+
+.delete, td select {
+    font-size: 16px;
+}
+
+table {
+    table-layout: fixed;
+    text-align: center;
+    width: 70%;
+    position: absolute;
+    top: 10%;
+    left: 30%
 }

@@ -1,7 +1,7 @@
 let myLibrary = [];
 const tableBody = document.querySelector('table')
 const buttons = { 
-    addBook: document.querySelector('.test-btn'),
+    addBook: document.querySelector('#add-btn'),
 };
 
 function Book(title, author, pages, readStatus) {
@@ -15,7 +15,7 @@ function addBookToLibrary() {
     let title = document.querySelector('#title').value
     let author = document.querySelector('#author').value;
     let pages = Number(document.querySelector('#pages').value);
-    let readStatus = document.querySelector('#read-status').value;
+    let readStatus = document.querySelector('#read-selector').value;
     
     if (title == '' || author == '' || pages == '' || isNaN(pages)) return;
     
@@ -24,7 +24,7 @@ function addBookToLibrary() {
     document.querySelector('#title').value = '';
     document.querySelector('#author').value = '';
     document.querySelector('#pages').value = '';
-    document.querySelector('#read-status').value = 'Yes';
+    document.querySelector('#read-selector').value = 'No';
 }
 
 function renderTableHeader() {
@@ -84,7 +84,7 @@ buttons.addBook.addEventListener('click', () => {
 function addReadSelector(tableCell, myLibrary, index, key) {
     let readSelector = document.createElement('select');
     tableCell.appendChild(readSelector);
-    array = ['Yes', 'No', 'Reading'];
+    array = ['No', 'Yes', 'Reading'];
     for (let i = 0; i < array.length; i++) {
         let option = document.createElement("option");
         option.value = array[i];
@@ -93,10 +93,9 @@ function addReadSelector(tableCell, myLibrary, index, key) {
     }
 
     let temp = myLibrary[index][key];
-    console.log(temp)
 
     for(let i, j = 0; i = readSelector.options[j]; j++) {
-        if(i.value == temp) {
+        if (i.value == temp) {
             readSelector.selectedIndex = j;
             break;
         }
@@ -118,5 +117,3 @@ function addDeleteListeners() {
 		});
 	});
 }
-
-// does not set readStatus correctly
