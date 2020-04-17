@@ -5,7 +5,6 @@ let myLibrary = [
     readStatus: 'Yes'}
 ];
 const tableBody = document.querySelector('tbody');
-const addBookBtn = document.querySelector('#add-btn');
 let myLibrary_serialized;
 
 render();
@@ -29,6 +28,7 @@ function addBookToLibrary() {
     
     resetInputFields();
     setLocalStorage();
+    render();
 }
 
 function resetInputFields() {
@@ -59,11 +59,6 @@ function render() {
     }
     addDeleteListeners();
 }
-
-addBookBtn.addEventListener('click', () => {
-    addBookToLibrary();
-    render();
-});
 
 function addReadSelector(tableCell, myLibrary, index, key) {
     let readSelector = document.createElement('select');
@@ -103,20 +98,6 @@ function addDeleteListeners() {
 	});
 }
 
-document.querySelectorAll('input').forEach( (input) => {
-    input.addEventListener('keyup', () => {
-        addBookOnEnter();        
-    });
-});
-
-document.querySelector('#read-selector').addEventListener('keyup', () => {
-    addBookOnEnter();
-});
-
-document.querySelector('#save-btn').addEventListener('click', () => {
-    updateMyLibrary()
-});
-
 function addBookOnEnter() {
     if (event.keyCode === 13) {
         event.preventDefault();
@@ -146,6 +127,24 @@ function updateMyLibrary() {
     }
     setLocalStorage()
 }
+
+document.querySelector('#add-btn').addEventListener('click', () => {
+    addBookToLibrary();
+});
+
+document.querySelectorAll('input').forEach( (input) => {
+    input.addEventListener('keyup', () => {
+        addBookOnEnter();        
+    });
+});
+
+document.querySelector('#read-selector').addEventListener('keyup', () => {
+    addBookOnEnter();
+});
+
+document.querySelector('#save-btn').addEventListener('click', () => {
+    updateMyLibrary()
+});
 
 window.addEventListener('load', () => {
     myLibrary = JSON.parse(localStorage.getItem('myStoredLibrary'));
