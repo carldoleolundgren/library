@@ -101,7 +101,7 @@ function addDeleteListeners() {
 function addBookOnEnter() {
     if (event.keyCode === 13) {
         event.preventDefault();
-        addBookBtn.click();
+        document.querySelector('#add-btn').click();
         document.querySelector('#title').focus();
         document.querySelector('#title').select();
     }
