@@ -147,6 +147,12 @@ document.querySelector('#save-btn').addEventListener('click', () => {
 });
 
 window.addEventListener('load', () => {
+    if (myLibrary == null) myLibrary = [
+        {title: 'Three Body Problem',
+        author: 'Cixin Liu',
+        pages: 303,
+        readStatus: 'Yes'}
+    ];
     myLibrary = JSON.parse(localStorage.getItem('myStoredLibrary'));
     render();
 })
