@@ -20,7 +20,7 @@ input {
     margin-bottom: 5%;
 }
 
-#read-selector, #add-btn, p {
+#read-selector, #add-btn, #save-btn, p {
     font-size: large;
     display: inline-block;
 }
@@ -28,6 +28,13 @@ input {
 #add-btn {
     color: rgb(92, 92, 92);
     background-color: rgb(65,135,247, .6);
+    margin-bottom: 5%;
+}
+
+#save-btn {
+    color: rgb(92, 92, 92);
+    background-color: rgba(65, 247, 111, 0.6);
+    float: right;
 }
 
 #read-status {

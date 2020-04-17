@@ -6,7 +6,6 @@ let myLibrary = [
 ];
 const tableBody = document.querySelector('tbody');
 const addBookBtn = document.querySelector('#add-btn');
-
 let myLibrary_serialized;
 
 render();
@@ -112,7 +111,11 @@ document.querySelectorAll('input').forEach( (input) => {
 
 document.querySelector('#read-selector').addEventListener('keyup', () => {
     addBookOnEnter();
-})
+});
+
+document.querySelector('#save-btn').addEventListener('click', () => {
+    updateMyLibrary()
+});
 
 function addBookOnEnter() {
     if (event.keyCode === 13) {
@@ -128,15 +131,23 @@ function setLocalStorage() {
     localStorage.setItem('myStoredLibrary', myLibrary_serialized)
 }
 
+function updateMyLibrary() {
+    for (i = 0; i < tableBody.rows.length; i++) {
+        if (tableBody.rows[i].cells[0].innerText != myLibrary[i]['title'] ||
+        tableBody.rows[i].cells[1].innerText != myLibrary[i]['author'] ||
+        tableBody.rows[i].cells[2].innerText != myLibrary[i]['pages'] ||
+        tableBody.rows[i].cells[3].firstChild.value != myLibrary[i]['readStatus']
+        ) {
+            myLibrary[i]['title'] = tableBody.rows[i].cells[0].innerText;
+            myLibrary[i]['author'] = tableBody.rows[i].cells[1].innerText;
+            myLibrary[i]['pages'] = tableBody.rows[i].cells[2].innerText;
+            myLibrary[i]['readStatus'] = tableBody.rows[i].cells[3].firstChild.value;
+        } 
+    }
+    setLocalStorage()
+}
+
 window.addEventListener('load', () => {
     myLibrary = JSON.parse(localStorage.getItem('myStoredLibrary'));
     render();
 })
-
-// needs to keep changes when they're made in the table
-/*
-function myFunction() {
-  var x = document.getElementById("myTable").rows[0].cells[0].innerText;
-  document.getElementById("demo").innerHTML = "Found " + x + " cells in the first tr element.";
-}
-*/
