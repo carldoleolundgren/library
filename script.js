@@ -45,10 +45,13 @@ function render() {
     
     for (let index in myLibrary) {
         let tableRow = document.createElement('tr');
+        
         for (let key in myLibrary[index]) {
             let tableCell = document.createElement('td');
+            
             if (key == 'readStatus') {
                 addReadSelector(tableCell, myLibrary, index, key);
+                
             } else { 
                 tableCell.innerText = myLibrary[index][key];
                 tableCell.contentEditable = 'true';
